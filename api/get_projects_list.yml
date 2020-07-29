@@ -11,8 +11,8 @@ variables:
 # request：指定接口的请求信息
 request:
     # url：指定请求的url路径
-    url: http://api.keyou.site:8000/projects/
-
+    # url: http://api.keyou.site:8000/projects/
+    url: /projects/
 
     # method：指定请求方式。如：GET、PUT、POST、get、put、post等
     method: GET

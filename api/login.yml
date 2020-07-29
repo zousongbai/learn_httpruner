@@ -8,60 +8,61 @@
 
 # name：指定当前接口的名称
 name: 登录接口
+base_url: "http://api.keyou.site:8000"
 # variables：指定当前用例需要用到的变量
 variables:
-    # 定义两个变量
-    # 变量名: 变量值
-    # 可以在定义语句的下方任意地方使用$变量名来调用
-    uname: "lemon1"
-#    uname: "${ENV(USERNAME)}"
-    passwd: "123456"
+  # 定义两个变量
+  # 变量名: 变量值
+  # 可以在定义语句的下方任意地方使用$变量名来调用
+  uname: "lemon1"
+  #    uname: "${ENV(USERNAME)}"
+  passwd: "123456"
 # request：指定接口的请求信息
 request:
-    # url：指定请求的url路径
-    url: http://api.keyou.site:8000/user/login/
-    # method：指定请求方式。如：GET、PUT、POST、get、put、post等
-    method: POST
-    # headers：指定请求头信息
-    headers:
-#        Content-Type: "application/json"
-#        User-Aget: "Mozilla/5.0 Ally"
-        # 可以使用${函数名(参数1, 参数2, 参数3)}
-        User-Aget: "${get_random_user_agent()}"
-    # json区域来指定json格式的请求参数
-    # data区域来指定form表请求参数，不需要传Content-Type，否则会报错
-    # files区域来指定文件请求参数
-    # params区域来指定查询字符串参数
-    data:
-        # username: "keyou1"
-        # password: "123456"
+  # url：指定请求的url路径，会自动去拼接base_url
+  url: /user/login/
+  # method：指定请求方式。如：GET、PUT、POST、get、put、post等
+  method: POST
+  # headers：指定请求头信息
+  headers:
+    #        Content-Type: "application/json"
+    #        User-Aget: "Mozilla/5.0 Ally"
+    # 可以使用${函数名(参数1, 参数2, 参数3)}
+    User-Aget: "${get_random_user_agent()}"
+  # json区域来指定json格式的请求参数
+  # data区域来指定form表请求参数，不需要传Content-Type，否则会报错
+  # files区域来指定文件请求参数
+  # params区域来指定查询字符串参数
+  data:
+    # username: "keyou1"
+    # password: "123456"
 
-        # 参数化
-#        username: "$uname"
+    # 参数化
+    #        username: "$uname"
 
-        # 可以使用${EVN(环境变量名)}
-        username: "${ENV(USERNAME)}"
-        password: $passwd
+    # 可以使用${EVN(环境变量名)}
+    username: "${ENV(USERNAME)}"
+    password: $passwd
 
 
 
 
 # validate：指定断言方式
 validate:
-    # eq指定做相等断言
-    # [实际值, 期望值]
-    # 默认能使用的属性有：status_code, cookies, elapsed, headers, content, text, json, encoding, ok, reason, url
-    # headers为响应头、content（text, json）响应体数据（如果为响应数据为json格式的话，那么会自动转化为字典）
-    # 字典获取值：content或text或json.字典key
-    # 列表获取值：content或text或json.数字索引值.字典key
+  # eq指定做相等断言
+  # [实际值, 期望值]
+  # 默认能使用的属性有：status_code, cookies, elapsed, headers, content, text, json, encoding, ok, reason, url
+  # headers为响应头、content（text, json）响应体数据（如果为响应数据为json格式的话，那么会自动转化为字典）
+  # 字典获取值：content或text或json.字典key
+  # 列表获取值：content或text或json.数字索引值.字典key
 
-#    - eq: ["status_code", 200]
-    - eq: ["content.username", "$uname"]
-    # contains：包含关系
-#    - contains: ["content.username", "1"]
+  #    - eq: ["status_code", 200]
+  - eq: ["content.username", "$uname"]
+  # contains：包含关系
+  #    - contains: ["content.username", "1"]
 
-    # check：实际结果，comparator：断言的形式， expect：期望结果
-    - {"check": "status_code", "comparator": "eq", "expect": 200}
+  # check：实际结果，comparator：断言的形式， expect：期望结果
+  - {"check": "status_code", "comparator": "eq", "expect": 200}
 
 # 执行用例？
 # 在terminal控制台下，执行 hrun yaml配置文件（json配置文件）的相对路径或者绝对路径

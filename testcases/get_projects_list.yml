@@ -2,7 +2,7 @@
 config:
     # name：当前用例名称
     name: "获取项目列表信息接口"
-#    base_url: "http://127.0.0.1:5000"
+    base_url: "http://127.0.0.1:8001"
 
 # teststeps：指定测试步骤
 teststeps:
