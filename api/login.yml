@@ -1,0 +1,61 @@
+# a.yaml配置文件（json文件类似），主要用于实现测试数据存储或者测试的执行逻辑
+# b.强缩进的格式，默认缩进4个空格
+# c.冒号前面为key，冒号的后面为value，如，key: value
+# d.缩进一致的且没有“-”，往往为嵌套的字典，如果有“-”，那么为列表
+# e.yaml中所有的key不可以加引号，value如果加单引号或者双引号，那么一定为字符串类型
+#  如果值为数字或者小数，那么为int或float类型，如果值中有字母符号，那么一定为字符串类型
+#备注：注释不能在代码的同一行注释
+
+# name：指定当前接口的名称
+name: 登录接口
+# variables：指定当前用例需要用到的变量
+variables:
+    # 定义两个变量
+    # 变量名: 变量值
+    # 可以在定义语句的下方任意地方使用$变量名来调用
+#    uname: "lemon1"
+    uname: "${ENV(USERNAME)}"
+    passwd: "123456"
+# request：指定接口的请求信息
+request:
+    # url：指定请求的url路径
+    url: http://api.keyou.site:8000/user/login/
+    # method：指定请求方式。如：GET、PUT、POST、get、put、post等
+    method: POST
+    # headers：指定请求头信息
+    headers:
+#        Content-Type: "application/json"
+        User-Aget: "Mozilla/5.0 Ally"
+        # 可以使用${函数名(参数1, 参数2, 参数3)}
+#        User-Aget: "${get_random_user_agent()}"
+    # json区域来指定json格式的请求参数
+    # data区域来指定form表请求参数，不需要传Content-Type，否则会报错
+    # files区域来指定文件请求参数
+    # params区域来指定查询字符串参数
+    data:
+        username: "keyou1"
+#        username: "$uname"
+        # 可以使用${EVN(环境变量名)}
+#        username: "${ENV(USERNAME)}"
+        password: "123456"
+#        password: $passwd
+# validate：指定断言方式
+validate:
+    # eq指定做相等断言
+    # [实际值, 期望值]
+    # 默认能使用的属性有：status_code, cookies, elapsed, headers, content, text, json, encoding, ok, reason, url
+    # headers为响应头、content（text, json）响应体数据（如果为响应数据为json格式的话，那么会自动转化为字典）
+    # 字典获取值：content或text或json.字典key
+    # 列表获取值：content或text或json.数字索引值.字典key
+
+    - eq: ["status_code", 200]
+    - eq: ["content.username", "keyou1"]
+#    - eq: ["content.username", "$uname"]
+    # contains：包含关系
+    - contains: ["content.username", "1"]
+
+    # check：实际结果，comparator：断言的形式， expect：期望结果
+    - {"check": "status_code", "comparator": "eq", "expect": 200}
+
+# 执行用例？
+# 在terminal控制台下，执行 hrun yaml配置文件（json配置文件）的相对路径或者绝对路径
