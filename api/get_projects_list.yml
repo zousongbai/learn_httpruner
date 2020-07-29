@@ -1,0 +1,45 @@
+# name：指定当前接口的名称
+name: 获取项目列表信息接口
+# variables：指定当前用例需要用到的变量
+variables:
+    # 定义两个变量
+    # 变量名: 变量值
+    uname: "${ENV(USERNAME)}"
+    passwd: "123456"
+#    token: "$token"
+
+# request：指定接口的请求信息
+request:
+    # url：指定请求的url路径
+    url: http://api.keyou.site:8000/projects/
+
+
+    # method：指定请求方式。如：GET、PUT、POST、get、put、post等
+    method: GET
+    # headers：指定请求头信息
+    headers:
+        # 可以使用${函数名(参数1, 参数2, 参数3)}
+        User-Aget: "${get_random_user_agent()}"
+        # $token变量来自testcases/get_projects_list.yml文件中的variables的token变量
+        Authorization: "JWT $token"
+    # json区域来指定json格式的请求参数
+    # data区域来指定form表请求参数，不需要传Content-Type，否则会报错
+    # files区域来指定文件请求参数
+    # params区域来指定查询字符串参数
+
+    # 自动的做参数的拼接
+    params:
+        # 查询第一页，每页3条
+        page:1
+        size:3
+
+
+
+# validate：指定断言方式
+validate:
+    # eq指定做相等断言
+    # [实际值, 期望值]
+
+    # check：实际结果，comparator：断言的形式， expect：期望结果
+    - {"check": "status_code", "comparator": "eq", "expect": 200}
+

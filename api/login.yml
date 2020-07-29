@@ -13,8 +13,8 @@ variables:
     # 定义两个变量
     # 变量名: 变量值
     # 可以在定义语句的下方任意地方使用$变量名来调用
-#    uname: "lemon1"
-    uname: "${ENV(USERNAME)}"
+    uname: "lemon1"
+#    uname: "${ENV(USERNAME)}"
     passwd: "123456"
 # request：指定接口的请求信息
 request:
@@ -25,20 +25,27 @@ request:
     # headers：指定请求头信息
     headers:
 #        Content-Type: "application/json"
-        User-Aget: "Mozilla/5.0 Ally"
+#        User-Aget: "Mozilla/5.0 Ally"
         # 可以使用${函数名(参数1, 参数2, 参数3)}
-#        User-Aget: "${get_random_user_agent()}"
+        User-Aget: "${get_random_user_agent()}"
     # json区域来指定json格式的请求参数
     # data区域来指定form表请求参数，不需要传Content-Type，否则会报错
     # files区域来指定文件请求参数
     # params区域来指定查询字符串参数
     data:
-        username: "keyou1"
+        # username: "keyou1"
+        # password: "123456"
+
+        # 参数化
 #        username: "$uname"
+
         # 可以使用${EVN(环境变量名)}
-#        username: "${ENV(USERNAME)}"
-        password: "123456"
-#        password: $passwd
+        username: "${ENV(USERNAME)}"
+        password: $passwd
+
+
+
+
 # validate：指定断言方式
 validate:
     # eq指定做相等断言
@@ -48,11 +55,10 @@ validate:
     # 字典获取值：content或text或json.字典key
     # 列表获取值：content或text或json.数字索引值.字典key
 
-    - eq: ["status_code", 200]
-    - eq: ["content.username", "keyou1"]
-#    - eq: ["content.username", "$uname"]
+#    - eq: ["status_code", 200]
+    - eq: ["content.username", "$uname"]
     # contains：包含关系
-    - contains: ["content.username", "1"]
+#    - contains: ["content.username", "1"]
 
     # check：实际结果，comparator：断言的形式， expect：期望结果
     - {"check": "status_code", "comparator": "eq", "expect": 200}

@@ -1,0 +1,37 @@
+# config：指定当前用例需要使用的配置信息
+config:
+    # name：当前用例名称
+    name: "获取项目列表信息接口"
+#    base_url: "http://127.0.0.1:5000"
+
+# teststeps：指定测试步骤
+teststeps:
+
+# 横杆（-）代表列表
+# 步骤一：登录
+-
+    # name：测试步骤名称
+    name: 登录接口
+    # api：可以使用继承，将正向用例导入使用相对路径或绝对路径，推荐使用相对路径
+    api: api/login.yml
+#    variables:
+#        user_agent: 'iOS/10.3'
+#        device_sn: $device_sn
+
+    # extract：指定需要提取得变量
+    extract:
+        # content.token：获取token
+        - token: content.token
+#    validate:
+#        - eq: ["status_code", 200]
+
+# 步骤二：获取项目列表信息
+-
+    # name：测试步骤名称
+    name: 项目列表信息
+    # api：可以使用继承，将正向用例导入使用相对路径或绝对路径，推荐使用相对路径
+    api: api/get_projects_list.yml
+#    variables:
+#        # api/get_projects_list.yml中也有token，此处使用就近原则，所以使用的是extract的content.token，如果此处没有token，则进行合并
+#        # 创建token变量，此处的$token变量来自上面的登录接口响应体的token，即extract的content.token
+#        token: $token
