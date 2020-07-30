@@ -14,9 +14,9 @@ variables:
   # 定义两个变量
   # 变量名: 变量值
   # 可以在定义语句的下方任意地方使用$变量名来调用
-  uname: "lemon1"
-  #    uname: "${ENV(USERNAME)}"
-  passwd: "123456"
+  # username: "lemon1"
+  username: "${ENV(USERNAME)}"
+  password: "123456"
 # request：指定接口的请求信息
 request:
   # url：指定请求的url路径，会自动去拼接base_url
@@ -38,13 +38,11 @@ request:
     # password: "123456"
 
     # 参数化
-    username: "$uname"
+    username: "$username"
 
     # 可以使用${EVN(环境变量名)}
     #  username: "${ENV(USERNAME)}"
-    password: $passwd
-
-
+    password: $password
 
 
 # validate：指定断言方式
@@ -57,7 +55,7 @@ validate:
   # 列表获取值：content或text或json.数字索引值.字典key
 
   #    - eq: ["status_code", 200]
-  - eq: ["content.username", "$uname"]
+  #  - eq: ["content.username", "$username"]
   # contains：包含关系
   #    - contains: ["content.username", "1"]
 

@@ -4,8 +4,8 @@ name: 获取项目列表信息接口
 variables:
     # 定义两个变量
     # 变量名: 变量值
-    uname: "${ENV(USERNAME)}"
-    passwd: "123456"
+    username: "${ENV(USERNAME)}"
+    password: "123456"
 #    token: "$token"
 
 # request：指定接口的请求信息

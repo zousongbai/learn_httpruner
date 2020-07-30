@@ -1,0 +1,32 @@
+# config：指定当前用例需要使用的配置信息
+config:
+    # name：当前用例名称
+    name: "登录接口"
+    base_url: "http://api.keyou.site:8000"
+
+    variables:
+        username: ''
+        password: '123456'
+        msg : 'username'
+        # 备注：此处的username是返回数据的key
+        status_code : 400
+
+# teststeps：指定测试步骤
+teststeps:
+
+# 横杆（-）代表列表
+# 步骤一：登录
+-
+    # name：测试步骤名称
+    name: 登录接口
+    # api：可以使用继承，将正向用例导入使用相对路径或绝对路径，推荐使用相对路径
+    api: api/login.yml
+
+    validate:
+        # contains：只要返回的是json格式的字符串，会自动转化为字典，所以在做包含判断的时候，其实是对key做成员运算
+        - contains: ["content", "$msg"]
+        # 覆盖api的断言
+        - {"check": "status_code", "comparator": "eq", "expect": $status_code}
+
+
+

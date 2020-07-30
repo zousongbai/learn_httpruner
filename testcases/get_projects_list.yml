@@ -2,11 +2,11 @@
 config:
     # name：当前用例名称
     name: "获取项目列表信息接口"
-    base_url: "http://127.0.0.1:8000"
+    base_url: "http://api.keyou.site:8000"
 
     variables:
-        uname: '小青年1'
-        passwd: '120000'
+        username: 'lemon1'
+        password: '123456'
 
 # teststeps：指定测试步骤
 teststeps:
@@ -23,8 +23,10 @@ teststeps:
     extract:
         # content.token：获取token
         - token: content.token
-#    validate:
-#        - eq: ["status_code", 200]
+    validate:
+        #  validate：优先级遵循合并覆盖原则
+        #  - eq: ["status_code", 201]
+        - eq: ["content.user_id", 1]
 
 # 步骤二：获取项目列表信息
 -
@@ -32,7 +34,4 @@ teststeps:
     name: 项目列表信息
     # api：可以使用继承，将正向用例导入使用相对路径或绝对路径，推荐使用相对路径
     api: api/get_projects_list.yml
-#    variables:
-#        # api/get_projects_list.yml中也有token，此处使用就近原则，所以使用的是extract的content.token，如果此处没有token，则进行合并
-#        # 创建token变量，此处的$token变量来自上面的登录接口响应体的token，即extract的content.token
-#        token: $token
+
