@@ -2,7 +2,11 @@
 config:
     # name：当前用例名称
     name: "获取项目列表信息接口"
-    base_url: "http://127.0.0.1:8001"
+    base_url: "http://127.0.0.1:8000"
+
+    variables:
+        uname: '小青年1'
+        passwd: '120000'
 
 # teststeps：指定测试步骤
 teststeps:
@@ -14,9 +18,6 @@ teststeps:
     name: 登录接口
     # api：可以使用继承，将正向用例导入使用相对路径或绝对路径，推荐使用相对路径
     api: api/login.yml
-#    variables:
-#        user_agent: 'iOS/10.3'
-#        device_sn: $device_sn
 
     # extract：指定需要提取得变量
     extract:
